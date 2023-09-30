@@ -1,5 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
@@ -10,6 +14,9 @@
     }
   },
   "targetDefaults": {
+    "deploy": {
+      "executor": "@atlas/deploy"
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
@@ -51,6 +58,7 @@
       "e2eTestRunner": "playwright"
     },
     "@nx/angular:library": {
+      "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "jest"
     },

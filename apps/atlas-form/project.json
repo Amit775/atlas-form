@@ -15,10 +15,7 @@
         "main": "apps/atlas-form/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/atlas-form/tsconfig.app.json",
-        "assets": [
-          "apps/atlas-form/src/favicon.ico",
-          "apps/atlas-form/src/assets"
-        ],
+        "assets": ["apps/atlas-form/src/favicon.ico", "apps/atlas-form/src/assets"],
         "styles": ["apps/atlas-form/src/styles.scss"],
         "scripts": []
       },
@@ -71,10 +68,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/atlas-form/**/*.ts",
-          "apps/atlas-form/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/atlas-form/**/*.ts", "apps/atlas-form/**/*.html"]
       }
     },
     "test": {
@@ -90,6 +84,9 @@
           "codeCoverage": true
         }
       }
+    },
+    "deploy": {
+      "executor": "@atlas/deploy:deploy"
     }
   }
 }

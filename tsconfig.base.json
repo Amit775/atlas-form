@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@atlas/deploy": ["tools/deploy/src/index.ts"],
       "@atlas/form": ["libs/form/src/index.ts"]
     }
   },

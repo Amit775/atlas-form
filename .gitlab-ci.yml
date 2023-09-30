@@ -53,9 +53,7 @@ generate-deploy-child-process:
   stage: deploy_setup
   extends: .distributed
   script:
-    - npm --prefix ./tools/deploy-tool install
-    - npm --prefix ./tools/deploy-tool run build
-    - node ./tools/deploy-tool/build/deploy.js --base ${NX_BASE} --head ${NX_HEAD} --branch ${CI_COMMIT_BRANCH}
+    - npx nx run atlas-form:deploy --base ${NX_BASE} --head ${NX_HEAD} --branch ${CI_COMMIT_BRANCH}
   artifacts:
     paths:
       - affected-deploy-ci.yaml

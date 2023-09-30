@@ -1,0 +1,28 @@
+image: node:16
+workflow:
+  rules:
+    - when: always
+.distributed:
+  tags:
+    - docker-main
+  interruptible: true
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+  artifacts:
+    paths:
+      - node_modules/.cache/nx
+"deploy-atlas-form\natlas-form-e2e\nform\ndeploy":
+  image: node:14.16.0
+  extends: .distributed
+  stage: deploy
+  script: |-
+    echo 'npx nx run atlas-form
+    atlas-form-e2e
+    form
+    deploy:deploy-staging'

@@ -40,11 +40,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/form/**/*.ts",
-          "libs/form/**/*.html",
-          "libs/form/package.json"
-        ]
+        "lintFilePatterns": ["libs/form/**/*.ts", "libs/form/**/*.html", "libs/form/package.json"]
       }
     }
   }

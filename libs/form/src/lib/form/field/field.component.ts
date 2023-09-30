@@ -17,7 +17,7 @@ import { createCustomFieldProvider } from '../utils/custom-field-provider';
 import { getComponentType } from './field-factory';
 
 @Component({
-  selector: 'lib-field',
+  selector: 'atlas-form-field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.scss'],
   standalone: true,
@@ -53,7 +53,7 @@ export class FieldComponent<TSchema, V> implements AfterViewInit, ControlValueAc
     if (!this.container) return;
 
     const componentType = getComponentType(this.field.ui);
-    const component = this.container!.createComponent(componentType);
+    const component = this.container.createComponent(componentType);
     component.setInput('value', this.value);
     component.setInput('field', this.field);
     component.instance.valueChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => this.onChange(value));

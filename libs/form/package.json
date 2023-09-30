@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^16.2.0",
-    "@angular/core": "^16.2.0"
+    "@angular/core": "^16.2.0",
+    "@angular/forms": "~16.2.0",
+    "@datorama/akita": "^8.0.1",
+    "immer": "^10.0.2"
   },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
+  "dependencies": {},
   "sideEffects": false
 }

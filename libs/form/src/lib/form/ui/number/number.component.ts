@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseFieldComponent } from '../base-field.component';
 
 @Component({
-  selector: 'lib-number',
+  selector: 'atlas-form-field-number',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './number.component.html',

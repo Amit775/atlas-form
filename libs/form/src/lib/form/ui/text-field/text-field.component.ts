@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseFieldComponent } from '../base-field.component';
 
 @Component({
-  selector: 'lib-text',
+  selector: 'atlas-form-field-text',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './text-field.component.html',

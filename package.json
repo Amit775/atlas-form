@@ -15,8 +15,8 @@
     "@angular/router": "~16.2.0",
     "@datorama/akita": "^8.0.1",
     "@nx/angular": "16.9.1",
-    "@nx/devkit": "^16.9.1",
-    "@nx/plugin": "^16.9.1",
+    "@nx/devkit": "16.9.1",
+    "@nx/plugin": "16.9.1",
     "@swc/helpers": "~0.5.2",
     "immer": "^10.0.2",
     "js-yaml": "^4.1.0",
@@ -64,7 +64,7 @@
     "jsonc-eslint-parser": "^2.1.0",
     "ng-packagr": "~16.2.0",
     "nx": "16.9.1",
-    "nx-cloud": "latest",
+    "nx-cloud": "16.4.0",
     "postcss": "^8.4.5",
     "postcss-import": "~14.1.0",
     "postcss-preset-env": "~7.5.0",
@@ -76,3 +76,4 @@
     "typescript": "~5.1.3"
   }
 }
+

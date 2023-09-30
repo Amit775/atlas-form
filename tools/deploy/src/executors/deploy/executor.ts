@@ -2,12 +2,9 @@ import { logger } from '@nx/devkit';
 import { execSync } from 'child_process';
 import { writeFileSync } from 'fs';
 import { dump } from 'js-yaml';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 import { DeployExecutorSchema } from './schema';
 
 type DeployType = 'production' | 'staging';
-type DeployArgv = { base: string; head: string; branch: string };
 
 export default async function runExecutor({ base, head, branch }: DeployExecutorSchema): Promise<{ success: boolean }> {
   logger.log('Executor ran for Deploy', { base, head, branch });
@@ -84,14 +81,4 @@ function generateGitlabCiYaml(affectedApps: Array<string>, deployType: DeployTyp
     ...nxInstallationBase,
     ...generatedJobsPerAffectedApp,
   });
-}
-
-function extractCmdLineArgs(args: string[]): DeployArgv {
-  const argv = yargs(hideBin(args)).options({
-    base: { type: 'string', demand: true },
-    head: { type: 'string', demand: true },
-    branch: { type: 'string', demand: true },
-  }).argv;
-
-  return argv as DeployArgv;
 }

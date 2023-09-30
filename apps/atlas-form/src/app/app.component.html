@@ -1,1 +1,7 @@
-<atlas-form-nx-welcome></atlas-form-nx-welcome>
+<atlas-form
+  [schema]="schema"
+  [value]="value"
+  [options]="options"
+  (valueChange)="onChange($event)"
+  (ready)="onReady($event)"
+/>

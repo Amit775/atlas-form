@@ -1,0 +1,8 @@
+<form [formGroup]="form">
+  <lib-field
+    *ngFor="let field of schema$ | async; trackBy: fieldName"
+    [field]="field"
+    [value]="value[field.name]"
+    [formControlName]="field.name"
+  />
+</form>

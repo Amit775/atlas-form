@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@atlas/form": ["libs/form/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

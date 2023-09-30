@@ -1,0 +1,22 @@
+{
+  "name": "atlas-form-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/atlas-form-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/atlas-form-e2e"],
+      "options": {
+        "config": "apps/atlas-form-e2e/playwright.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/atlas-form-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "implicitDependencies": ["atlas-form"]
+}

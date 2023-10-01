@@ -1,17 +1,16 @@
-import { logger } from '@nx/devkit';
-import { execSync } from 'child_process';
+import { ExecutorContext, logger } from '@nx/devkit';
 import { writeFileSync } from 'fs';
 import { dump } from 'js-yaml';
 import { DeployExecutorSchema } from './schema';
 
 type DeployType = 'production' | 'staging';
 
-export default async function runExecutor({ base, head, branch }: DeployExecutorSchema): Promise<{ success: boolean }> {
-  logger.log('Executor ran for Deploy', { base, head, branch });
+export default async function runExecutor({ base, head, branch }: DeployExecutorSchema, context: ExecutorContext): Promise<{ success: boolean }> {
+  logger.log('Executor ran for Deploy', { base, head, branch, context });
 
-  const affectedApps = getAffectedApps();
-  if (affectedApps.length > 0) {
-    writeYamlFile(affectedApps, branch);
+  const affectedApp = context.projectName
+  if (affectedApp) {
+    writeYamlFile(affectedApp, branch);
   } else {
     logger.log(`no apps was changed in run, base=${base} head=${head}`);
   }
@@ -19,28 +18,14 @@ export default async function runExecutor({ base, head, branch }: DeployExecutor
   return { success: true };
 }
 
-function getAffectedApps(): string[] {
-  const command = `nx show projects --affected --plain`;
-  logger.log(command);
-
-  const projects = execSync(command).toString('utf-8').trim();
-  logger.log('affected', projects);
-  if (projects === '') {
-    return [];
-  } else {
-    const affectedApps = projects.split(' ');
-    logger.log(`affected apps to be deployed = ${affectedApps}`);
-    return affectedApps;
-  }
-}
-function writeYamlFile(affectedApps: Array<string>, branch: string): void {
+function writeYamlFile(affectedApp: string, branch: string): void {
   const deployType = branch === 'master' ? 'production' : 'staging';
-  const yamlstr = generateGitlabCiYaml(affectedApps, deployType);
+  const yamlstr = generateGitlabCiYaml(affectedApp, deployType);
   logger.log(`generated yaml file \n\n${yamlstr}`);
 
   writeFileSync('affected-deploy-ci.yaml', yamlstr);
 }
-function generateGitlabCiYaml(affectedApps: Array<string>, deployType: DeployType): string {
+function generateGitlabCiYaml(app: string, deployType: DeployType): string {
   const gitlabCIBaseDefinition: Record<string, unknown> = {
     image: 'node:16',
     workflow: {
@@ -71,10 +56,7 @@ function generateGitlabCiYaml(affectedApps: Array<string>, deployType: DeployTyp
     script: `echo 'npx nx run ${app}:deploy-${deployType}'`,
   });
 
-  const generatedJobsPerAffectedApp = affectedApps.reduce<object>((tmpobj: object, app: string) => {
-    tmpobj[`deploy-${app}`] = deployJobDefinition(app);
-    return tmpobj;
-  }, {});
+  const generatedJobsPerAffectedApp = {[`deploy-${app}`]: deployJobDefinition(app) }
 
   return dump({
     ...gitlabCIBaseDefinition,

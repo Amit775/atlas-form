@@ -17,12 +17,8 @@ workflow:
   artifacts:
     paths:
       - node_modules/.cache/nx
-"deploy-atlas-form\natlas-form-e2e\nform\ndeploy":
+deploy-atlas-form:
   image: node:14.16.0
   extends: .distributed
   stage: deploy
-  script: |-
-    echo 'npx nx run atlas-form
-    atlas-form-e2e
-    form
-    deploy:deploy-staging'
+  script: echo 'npx nx run atlas-form:deploy-staging'

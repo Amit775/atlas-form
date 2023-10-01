@@ -5,10 +5,13 @@ import { DeployExecutorSchema } from './schema';
 
 type DeployType = 'production' | 'staging';
 
-export default async function runExecutor({ base, head, branch }: DeployExecutorSchema, context: ExecutorContext): Promise<{ success: boolean }> {
+export default async function runExecutor(
+  { base, head, branch }: DeployExecutorSchema,
+  context: ExecutorContext
+): Promise<{ success: boolean }> {
   logger.log('Executor ran for Deploy', { base, head, branch, context });
 
-  const affectedApp = context.projectName
+  const affectedApp = context.projectName;
   if (affectedApp) {
     writeYamlFile(affectedApp, branch);
   } else {
@@ -27,7 +30,7 @@ function writeYamlFile(affectedApp: string, branch: string): void {
 }
 function generateGitlabCiYaml(app: string, deployType: DeployType): string {
   const gitlabCIBaseDefinition: Record<string, unknown> = {
-    image: 'node:16',
+    image: 'node:18',
     workflow: {
       rules: [{ when: 'always' }],
     },
@@ -50,17 +53,17 @@ function generateGitlabCiYaml(app: string, deployType: DeployType): string {
   };
 
   const deployJobDefinition = (app: string): Record<string, string | string[]> => ({
-    image: 'node:14.16.0',
+    image: 'node:18',
     extends: '.distributed',
     stage: 'deploy',
     script: `echo 'npx nx run ${app}:deploy-${deployType}'`,
   });
 
-  const generatedJobsPerAffectedApp = {[`deploy-${app}`]: deployJobDefinition(app) }
+  const generatedJobsPerAffectedApp = { [`deploy-${app}`]: deployJobDefinition(app) };
 
   return dump({
     ...gitlabCIBaseDefinition,
     ...nxInstallationBase,
     ...generatedJobsPerAffectedApp,
-  }, {});
+  });
 }

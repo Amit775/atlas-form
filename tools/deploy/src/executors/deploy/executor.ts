@@ -32,9 +32,9 @@ function generateGitlabCiYaml(app: string, deployType: DeployType): string {
       rules: [{ when: 'always' }],
     },
   };
+
   const nxInstallationBase = {
     '.distributed': {
-      tags: ['docker-main'],
       interruptible: true,
       cache: {
         key: {
@@ -62,5 +62,5 @@ function generateGitlabCiYaml(app: string, deployType: DeployType): string {
     ...gitlabCIBaseDefinition,
     ...nxInstallationBase,
     ...generatedJobsPerAffectedApp,
-  });
+  }, {});
 }

@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <lib-field
+  <atlas-form-field
     *ngFor="let field of schema$ | async; trackBy: fieldName"
     [field]="field"
     [value]="value[field.name]"

@@ -3,32 +3,35 @@ import { writeFileSync } from 'fs';
 import { dump } from 'js-yaml';
 import { DeployExecutorSchema } from './schema';
 
-type DeployType = 'production' | 'staging';
+type ExecutorResult = { success: boolean };
 
-export default async function runExecutor(
-  { base, head, branch }: DeployExecutorSchema,
-  context: ExecutorContext
-): Promise<{ success: boolean }> {
-  logger.log('Executor ran for Deploy', { base, head, branch, context });
+export default async function runExecutor(options: DeployExecutorSchema, context: ExecutorContext): Promise<ExecutorResult> {
+  logger.log('Executor ran for Deploy', { options, context });
 
-  const affectedApp = context.projectName;
-  if (affectedApp) {
-    writeYamlFile(affectedApp, branch);
-  } else {
-    logger.log(`no apps was changed in run, base=${base} head=${head}`);
+  const project = context.projectName;
+  if (!project) {
+    logger.log(`no project name`);
+    return { success: true };
+  }
+
+  try {
+    writeYamlFile(project, options.deployType);
+  } catch (error: unknown) {
+    logger.error(error);
+    return { success: false };
   }
 
   return { success: true };
 }
 
-function writeYamlFile(affectedApp: string, branch: string): void {
-  const deployType = branch === 'master' ? 'production' : 'staging';
-  const yamlstr = generateGitlabCiYaml(affectedApp, deployType);
+function writeYamlFile(project: string, deployType: string): void {
+  const yamlstr = generateGitlabCiYaml(project, deployType);
   logger.log(`generated yaml file \n\n${yamlstr}`);
 
   writeFileSync('affected-deploy-ci.yaml', yamlstr);
 }
-function generateGitlabCiYaml(app: string, deployType: DeployType): string {
+
+function generateGitlabCiYaml(app: string, deployType: string): string {
   const gitlabCIBaseDefinition: Record<string, unknown> = {
     image: 'node:18',
     workflow: {
@@ -59,11 +62,11 @@ function generateGitlabCiYaml(app: string, deployType: DeployType): string {
     script: `echo 'npx nx run ${app}:deploy-${deployType}'`,
   });
 
-  const generatedJobsPerAffectedApp = { [`deploy-${app}`]: deployJobDefinition(app) };
+  const generatedJobs = { [`deploy-${app}`]: deployJobDefinition(app) };
 
   return dump({
     ...gitlabCIBaseDefinition,
     ...nxInstallationBase,
-    ...generatedJobsPerAffectedApp,
+    ...generatedJobs,
   });
 }

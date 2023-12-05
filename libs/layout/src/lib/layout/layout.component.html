@@ -1,0 +1,5 @@
+<div class="all-window" #window cdkDropListGroup>
+  <atlas-layout-container lname="1"></atlas-layout-container>
+  <atlas-layout-container lname="2"></atlas-layout-container>
+  <div class="remain-space" cdkDropList (cdkDropListDropped)="log($event)"></div>
+</div>

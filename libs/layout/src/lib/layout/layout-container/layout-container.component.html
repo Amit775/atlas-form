@@ -1,0 +1,24 @@
+<div
+  class="tabs-list"
+  cdkDropList
+  [cdkDropListData]="lname"
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="addOrMoveTab($event)"
+>
+  <span
+    class="tab"
+    [class.active]="isActive(tab)"
+    cdkDrag
+    [cdkDragData]="tab"
+    (cdkDragDropped)="removeTab($event)"
+    (click)="setActive(tab)"
+    *ngFor="let tab of tabs$ | async"
+  >
+    <span>{{ tab.name }}</span>
+    <mat-icon class="close" (click)="closeTab(tab)">close</mat-icon>
+  </span>
+</div>
+<div class="content" *ngIf="selectedTab$ | async as tab">
+  {{ tab.content }}
+</div>
+<button (click)="addTab()">Add</button>

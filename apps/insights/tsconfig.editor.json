@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.ts", "../../libs/layout/src/lib/layout/tabs.store.ts"],
+  "compilerOptions": {
+    "types": ["jest", "node"]
+  }
+}

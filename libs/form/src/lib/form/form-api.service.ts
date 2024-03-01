@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormQuery, FormStore } from './form-state.service';
+import { FormQuery, FormStore } from './form-store.service';
 import { AtlasFormField } from './models';
 import { AtlasFormControls, buildControl } from './utils/build-form';
 import { StringKeys, ValueOfStringKey } from './utils/types';

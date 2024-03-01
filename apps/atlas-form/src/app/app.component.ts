@@ -74,7 +74,7 @@ export class AppComponent {
     }, {} as Schema);
   }
 
-  getFieldData(item: Item, field: AtlasFormField<Schema>) {
+  getFieldData(item: Item, field: AtlasFormField<Schema>): unknown {
     if (field.jsonPath) return jp.query(item, field.jsonPath, 1)[0];
     if (field.ontology) return resolveOntology(item, field.ontology);
 

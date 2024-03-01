@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { workspaceRoot } from '@nx/devkit';
 // For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
+const baseURL = process.env['BASE_URL'] || 'http://localhost:4201';
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -20,8 +20,8 @@ export default defineConfig({ ...nxE2EPreset(__filename, { testDir: './src' }),
     },
     /* Run your local dev server before starting the tests */
     webServer: {
-        command: 'npx nx serve atlas-form',
-        url: 'http://localhost:4200',
+        command: 'npx nx serve insights',
+        url: 'http://localhost:4201',
         reuseExistingServer: !process.env.CI,
         cwd: workspaceRoot,
     }, projects: [

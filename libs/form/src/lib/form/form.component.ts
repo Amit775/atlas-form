@@ -13,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControlStatus, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FieldComponent } from './field/field.component';
 import { FormAPI } from './form-api.service';
-import { FormStore } from './form-state.service';
+import { FormStore } from './form-store.service';
 import { AtlasFormField, AtlasFormOptions } from './models';
 import { AtlasFormReadyEvent } from './models/atlas-form-event';
 import { AtlasFormControls, buildForm } from './utils/build-form';

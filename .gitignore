@@ -40,4 +40,5 @@ Thumbs.db
 
 .angular
 .npm
-.nx
+
+.nx/cache

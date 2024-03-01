@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@atlas/deploy": ["tools/deploy/src/index.ts"],
-      "@atlas/form": ["libs/form/src/index.ts"]
+      "@atlas/form": ["libs/form/src/index.ts"],
+      "@atlas/layout": ["libs/layout/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

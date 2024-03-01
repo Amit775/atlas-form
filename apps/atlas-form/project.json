@@ -50,10 +50,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "atlas-form:build:production"
+          "buildTarget": "atlas-form:build:production"
         },
         "development": {
-          "browserTarget": "atlas-form:build:development"
+          "buildTarget": "atlas-form:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -61,28 +61,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "atlas-form:build"
+        "buildTarget": "atlas-form:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/atlas-form/**/*.ts", "apps/atlas-form/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/atlas-form/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "apps/atlas-form/jest.config.ts"
       }
     },
     "deploy": {

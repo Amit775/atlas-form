@@ -52,8 +52,8 @@ export class FieldComponent<TSchema, V> implements AfterViewInit, ControlValueAc
   ngAfterViewInit(): void {
     if (!this.container) return;
 
-    const componentType = getComponentType(this.field.ui);
-    const component = this.container.createComponent(componentType);
+    const ComponentType = getComponentType(this.field.ui);
+    const component = this.container.createComponent(ComponentType);
     component.setInput('value', this.value);
     component.setInput('field', this.field);
     component.instance.valueChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => this.onChange(value));
